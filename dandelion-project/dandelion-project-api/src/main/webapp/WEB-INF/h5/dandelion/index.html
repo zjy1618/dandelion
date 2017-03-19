@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html manifest="index.manifest">
+	<head>
+		<meta charset="utf-8" />
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="format-detection" content="telephone=no" />
+		<title>蒲公英</title>
+		<script src="lib/js/jquery-2.1.4.min.js"></script>
+		<script src="lib/js/lib.min.js"></script>
+				<script type="text/javascript">
+			var addSwipe = !navigator.userAgent.match(/android/i);
+			if(addSwipe) document.write('<script src="lib/js/jquery.touchSwipe.min.js"><\/script>');
+			var addRippleSelector = '';
+			var api_pre = 'http://101.201.64.144:8102/';
+			var img_pre = 'http://101.201.64.144:8101';
+		</script>
+		<link rel="stylesheet" href="lib/css/icon.min.css" media="all" />
+	</head>
+	<body>	
+		<div href="lib/css/fonts/MaterialDesignIcon.ttf"></div><!--for manifest-->
+		<link rel="stylesheet" href="build/style.css" />
+		<link rel="stylesheet" href="view.css" media="all" />
+		<div id="main">
+			
+
+<div class="page" id="page-cart">
+	<div class="top">
+		<span class="back"></span>
+		<h1>购物车</h1>
+	</div>
+	<div class="wrap" id="cart">
+		<div class="con">
+			<div class="nocon">空空如也</div>
+			<ul class="set product mt0">
+				<li class="m_tpl" rel="{id}">
+					<img s_rc="{main_img}" />
+					<p class="pos_right">{product_name} <sub class="d-ib">({style_info} × {buyCount})</sub></p>
+					<div class="pos_right">
+						<p class="gray fz-12">{description}</p>
+						<p><span class="money red-color">{amount}</span></p>
+						<i class="buy icon-delete pos_btm_right" onclick="Trade.delFromCart('{productCode}','{styleId}',this)">删除</i>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="btm" style="padding: 12px;">
+		总计<span class="money red-color" row="amount">0</span> <sub>(共<span row="count">0</span>件)</sub>
+		<button class="side disabled submit" fn="onSubmitOrder">确认下单</button>
+	</div>
+</div><!--
+alt+enter 在下面新建一行
+shift+alt+enter 在上面新建一行
+-->
+<div class="page show" id="page-index">
+	<div class="top">
+		<h1>全部商品</h1>
+		<span class="right enter_page" rel="orders"><i class="icon icon-assignment"></i></span>
+	</div>
+	
+	<div class="wrap" id="index" pull="Trade.getIndex">
+		<div class="con">
+			<div class="seek-wrap">
+				<input type="text" class="search" placeholder="搜索产品名称" oninput="Trade.getIndex(1)"/>
+				<span class="icon-search y_center gray" style="left: 6px;"></span>
+			</div>
+			<ul class="set product mt0">
+				<li class="m_tpl" rel="{productCode}">
+					<img s_rc="{main_img}" />
+					<p class="pos_right">{product_name}</p>
+					<div class="pos_right">
+						<p class="gray fz-12">{description}</p>
+						<p><span class="money red-color">{sell_price}</span> <sub>定金</sub></p>
+						<i class="buy icon-add-shopping-cart pos_btm_right" onclick="Trade.showBuyMask('{productCode}')">订购</i>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="icon-shopping-cart enter_page" rel="cart" id="shopcart">
+		<span class="notice" tipnum=""></span>
+	</div>
+	<div class="topmask popup clickoff" id="mask-buy">
+		<div class="outer">
+			<i class="icon-close close"></i>
+			<ul class="set no_bd mt0">
+				<li name="productCode">
+					<img s_rc="img/avatar.jpg" class="ord_img" row="main_img" />
+					<div class="ord_right" style="right: 30px;">
+						<div class="gray fz-14" row="product_name"></div>
+						<!--<span class="money red-color pos_btm" row="sell_price"></span>-->
+					</div>
+				</li>
+				<li>
+					<div>购买类型</div>
+					<div class="right radio" name="styleId" val="1" id="buy_type" fn="onCalcAmount">
+						
+					</div>
+				</li>
+				<li>
+					<div for="">数量</div>
+					<div class="calculator pos_right">
+						<b>-</b><input type="tel" value="1" name="buyCount" max="100000" onchange="Trade.onCalcAmount()"><b>+</b>
+					</div>
+				</li>
+				<li>总金额<span class="pos_right red-color money" id="buy_amount" name="amount"></span></li>
+				<li>
+					<button style="margin: 0;width: 100%;padding: 10px 0;" onclick="Trade.addToCart()">确定</button>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+</div>
+
+
+<div class="page" id="page-ordinfo">
+	<div class="top">
+		<span class="back"></span>
+		<h1>订单状态</h1>
+	</div>
+	<div class="wrap" id="ordinfo">
+		<div class="con">
+			<h2 class="ta-c" style="margin: 10px ;">下单成功</h2>
+			<div class="toptip">付款时提供订单编号给蒲公英</div>
+			<ul class="set">
+				<li>订单编号<span class="pos_right" row="orderNumber"></span></li>
+				<li>待付金额<span class="pos_right money" row="amount"></span></li>
+				<li>创建时间<span class="pos_right" row="date"></span></li>
+				<li>用户名<span class="pos_right" row="userName"></span></li>
+				<li>手机号码<span class="pos_right" row="mobile"></span></li>
+				<li>邮政编码<span class="pos_right" row="postCode"></span></li>
+				<li>收货地址<span class="pos_right" row="address"></span></li>
+				<li>留言<span class="pos_right" row="note"></span></li>
+			</ul>
+			<div class="toptip">订单商品(共<span row="productAllCount"></span>样)</div>
+			<ul class="set product detail">
+				
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="page" id="page-orders">
+	<div class="top">
+		<span class="back"></span>
+		<h1>订单列表</h1>
+	</div>
+	<div class="wrap" id="orders" pull="Trade.getOrders">
+		<div class="con">
+			<div class="nocon hide">空空如也</div>
+			<div id="ord_list">
+				
+			</div>
+		</div>
+	</div>
+</div>		</div>
+		
+		<script src="build/app.main.js?1472546599"></script>
+			</body>
+</html>

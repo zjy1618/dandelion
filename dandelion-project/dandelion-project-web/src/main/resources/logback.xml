@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds" debug="true">
+	<timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss"/>
+	
+    <contextName>dandelion</contextName>
+
+    <property name="LOG_HOME" value="/data/logs/tomcat/dandelion/logs"/>
+    <property name="DEFAULT_PATTERN" value="%d %-5level [%X{ctxLogId}][%thread] %logger{5} - %msg%n"/>
+    <property name="LEVEL" value="info"/>
+    <property name="CHARSET" value="UTF-8"/>
+	
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>${LEVEL}</level>
+        </filter>
+        <encoder>
+            <pattern>[%-5level] %date{HH:mm:ss.SSS} %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/error.log</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/error.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${DEFAULT_PATTERN}</pattern>
+            <charset>${CHARSET}</charset>
+        </encoder>
+    </appender>
+
+    <!-- contains sevice, controller -->
+    <appender name="SERVICE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/service.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/service.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${DEFAULT_PATTERN}</pattern>
+            <charset>${CHARSET}</charset>
+        </encoder>
+    </appender>
+    
+    <!-- 性能监测 
+    <appender name="performMonitor" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/monitor.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/monitor.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${DEFAULT_PATTERN}</pattern>
+            <charset>${CHARSET}</charset>
+        </encoder>
+    </appender> -->
+    
+    <!-- 操作日志 -->
+    <appender name="operatelog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/operatelog.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/operatelog.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>        
+        <encoder>
+            <pattern>${DEFAULT_PATTERN}</pattern>
+            <charset>${CHARSET}</charset>
+        </encoder>
+    </appender>
+
+
+    <logger name="ch.qos.logback"  level="ERROR"  additivity="false">
+        <appender-ref ref="ERROR"/>
+    </logger>
+
+    <logger name="com.zjy.dandelion"  level="${LEVEL}"  additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="SERVICE"/>
+        <appender-ref ref="ERROR"/>        
+    </logger>
+    
+    <!-- <logger name="com.miz.moneypackage.aop"  level="DEBUG"  additivity="false">
+    	<appender-ref ref="performMonitor"></appender-ref>
+    </logger> -->
+    
+    <logger name="com.zjy.dandelion.utils.OperateLog"  level="INFO"  additivity="false">
+    	<appender-ref ref="operatelog"></appender-ref>
+    </logger>
+
+    <root level="${LEVEL}">
+        <appender-ref ref="ERROR"/>
+    </root>
+
+
+</configuration>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/dandelion-parent.iml" filepath="$PROJECT_DIR$/dandelion-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dandelion-project/dandelion-project.iml" filepath="$PROJECT_DIR$/dandelion-project/dandelion-project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dandelion-project/dandelion-project-api/dandelion-project-api.iml" filepath="$PROJECT_DIR$/dandelion-project/dandelion-project-api/dandelion-project-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dandelion-project/dandelion-project-common/dandelion-project-common.iml" filepath="$PROJECT_DIR$/dandelion-project/dandelion-project-common/dandelion-project-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dandelion-project/dandelion-project-dao/dandelion-project-dao.iml" filepath="$PROJECT_DIR$/dandelion-project/dandelion-project-dao/dandelion-project-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dandelion-project/dandelion-project-entity/dandelion-project-entity.iml" filepath="$PROJECT_DIR$/dandelion-project/dandelion-project-entity/dandelion-project-entity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dandelion-project/dandelion-project-service/dandelion-project-service.iml" filepath="$PROJECT_DIR$/dandelion-project/dandelion-project-service/dandelion-project-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dandelion-project/dandelion-project-web/dandelion-project-web.iml" filepath="$PROJECT_DIR$/dandelion-project/dandelion-project-web/dandelion-project-web.iml" />
+    </modules>
+  </component>
+</project>

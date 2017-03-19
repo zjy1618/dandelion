@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zjy.dandelion.dao.mapper.ProductMapper">
+  <resultMap id="ListMap" type="com.zjy.dandelion.entity.Product" >
+
+	  <association fetchType="eager" property="productSort" column="productSort_id"
+				   select="com.zjy.dandelion.dao.mapper.ProductSortMapper.selectByPrimaryKey" />
+   </resultMap>
+
+  <resultMap id="DetailMap" type="com.zjy.dandelion.entity.Product" extends="ListMap"></resultMap>
+  
+  <select id="selectByPrimaryKey" resultMap="DetailMap">
+  	select * from `product` where id=#{id}
+  </select>
+  
+  <select id="findByMap"  resultMap="ListMap">
+  	select * from `product`
+  	<where>
+  		<if test="productCode != null">
+  			and productCode = #{productCode}
+  		</if>
+  		<if test="productSortId != null">
+  			and productSort_id =#{productSortId}
+  		</if>
+  		<if test="name != null">
+  			and name like '%${name}%'
+  		</if>
+  		<if test="status != null">
+  			and status = #{status}
+  		</if>
+  	</where>
+  	order by createDate desc
+  	<if test="startNumber != null and pageSize != null ">
+		LIMIT #{startNumber} , #{pageSize}
+    </if>
+  </select>
+  
+  <select id="countByMap" resultType="Integer">
+  	select count(id) from `product`
+  	<where>
+		<if test="productCode != null">
+			and productCode = #{productCode}
+		</if>
+  		<if test="productSortId != null">
+			and productSort_id =#{productSortId}
+  		</if>
+  		<if test="name != null">
+  			and name like '%${name}%'
+  		</if>
+  		<if test="status != null">
+  			and status = #{status}
+  		</if>
+  	</where>
+  	order by createDate
+  </select>
+</mapper>

@@ -1,0 +1,89 @@
+
+ul.product.set li img {
+	font-size: 80px;
+	height: 1em;
+	width: 1em;
+}
+ul.product.set li .pos_right {
+	width: 60%;
+    width: calc(100% - 120px);
+    transform: none;
+}
+ul.product li p.pos_right {
+    top: 12px;
+    margin: 0;
+    font-size: 14px;
+}
+ul.product li div.pos_right {
+    top: initial;
+   	bottom: 12px;
+}
+ul.set li button{
+	margin: 0;
+    display: inline-block;
+    width: auto;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+.pos_btm_right {
+	position: absolute;
+    right: 0;
+    bottom: 0;
+}
+.btm button{margin: 5px auto;}
+button.hover{opacity: .9;}
+
+#pay_list li i{
+	background: url(img/pay.png) 0 center no-repeat;
+	background-size: 26px;
+}
+
+li .ord_img{width: 60px;height: 60px;}
+li .ord_right{
+	position: absolute;
+	top: 12px;bottom: 12px;
+	left: 90px;right: 15px;
+}
+li .pos_btm{position: absolute;bottom: 0;}
+
+li i.buy{
+	color: #333;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#shopcart {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    z-index: 1;
+    font-size: 20px;
+    background: #fff;
+    padding: 15px;
+    border: 2px solid #949494;
+    border-radius: 100px;
+    cursor: pointer;
+}
+#shopcart.hover{background: #eee;}
+#shopcart .notice {
+    position: absolute;
+    top: -5px;
+    right: 0;
+}
+#cart ul.product.set li .pos_right{
+	font-size: 14px;
+	width: calc(100% - 115px);
+}
+#cart .product li img{font-size: 70px;}
+
+#auth_input input {
+    display: block;
+    border: 1px solid #ddd;
+    margin: 8px auto;
+    padding: 6px;
+    font-size: 14px;
+}
+#ord_list .buy,.detail .buy{display: none;}
+.radio span {
+    font-size: 18px;
+}

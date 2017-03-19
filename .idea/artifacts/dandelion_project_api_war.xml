@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="dandelion-project-api:war">
+    <output-path>$PROJECT_DIR$/dandelion-project/dandelion-project-api/target</output-path>
+    <root id="archive" name="dandelion.war">
+      <element id="artifact" artifact-name="dandelion-project-api:war exploded" />
+    </root>
+  </artifact>
+</component>
